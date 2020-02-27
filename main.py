@@ -18,7 +18,7 @@ class Stack:
         try:
             self.container.pop(len(self.container)-1)
         except Exception:
-            print('They are no more items in the stack')
+            return (f"")
     
     def last_element(self):
         return (self.container[len(self.container) - 1])

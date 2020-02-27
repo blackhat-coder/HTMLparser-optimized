@@ -32,8 +32,8 @@ class Node:
         return self.d_tag
 
 class Htmlparserdebug(HTMLparser):
+    
     def __init__(self,file_name):
-        
         file_path = os.path.join(os.getcwd(), file_name.txt)
         html_file = open(file_path, "r+")
     
@@ -48,7 +48,7 @@ class Htmlparserdebug(HTMLparser):
             line += 1
             HTMLparser.feed(line)
             if HTMLparser.handle_starttag(tag,attrs):
-                stack.append(Node(tag,line))
+                stack.push(Node(tag,line))
             
             if HTMLparser.handle_endtag(tag):
                 check()
@@ -61,9 +61,8 @@ class Htmlparserdebug(HTMLparser):
             break
         
         elif HTMLparser.handle_endtag(tag) != stack.last_element.d_tag:
-            # error statement
+            print(f"line:{line}, expected:{self.d_tag} closing </tag>")
             stack.pop()
             check()
-    
     
     

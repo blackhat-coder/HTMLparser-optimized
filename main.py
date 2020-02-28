@@ -1,6 +1,6 @@
 
 # HTMLparser is the module that does the parsing
-from html.parser import HTMLparser 
+from html.parser import HTMLParser 
 
 # import os: to be compatible with different machines when choosing a HTML document to parse and debug
 import os
@@ -35,7 +35,7 @@ class Node:
 
     
 # The debug class
-class Htmlparserdebug(HTMLparser):
+class Htmlparserdebug(HTMLParser):
     # constructor/initializer for document upload.
     # document has to be in the same directory
     
@@ -55,15 +55,15 @@ class Htmlparserdebug(HTMLparser):
         
         for line in html_file:                                          # basically looping through the html file
             line += 1 
-            HTMLparser.feed(line)                                       # for each line, feed it to the HTMLparser feed method
+            HTMLParser.feed(line)                                       # for each line, feed it to the HTMLparser feed method
             
-            if HTMLparser.handle_starttag(tag,attrs):                   # handles start tags
+            if HTMLParser.handle_starttag(tag,attrs):                   # handles start tags
                 stack.push(Node(tag,line)) 
                 
                 # for every instance of the Node(d_tag,line) class, pass the tag and the line of the start tag as arguements
                 # and then push it to the stack
             
-            if HTMLparser.handle_endtag(tag):                           # handles endtags
+            if HTMLParser.handle_endtag(tag):                           # handles endtags
                 check()                                                 # function() that handles end tags
     
     
@@ -71,12 +71,12 @@ class Htmlparserdebug(HTMLparser):
         
         # if start_tag is equal to the last element in the stack
         
-        if HTMLparser.handle_starttag(tag) == stack.last_element.d_tag:
+        if HTMLParser.handle_starttag(tag) == stack.last_element.d_tag:
             stack.pop()
             break
         
         # if the end tag is not equal to the last element in the stack
-        elif HTMLparser.handle_endtag(tag) != stack.last_element.d_tag:
+        elif HTMLParser.handle_endtag(tag) != stack.last_element.d_tag:
          
             print(f"line:{line}, expected:{self.d_tag} closing </tag>") #debug message
             stack.pop()                                                 #then pop the stack

@@ -1,12 +1,9 @@
 
-# HTMLparser is the module that does the parsing
-from html.parser import HTMLParser 
 
-# import os: to be compatible with different machines when choosing a HTML document to parse and debug
+from html.parser import HTMLParser 
 import os
 
 
-# Stack implementation
 class Stack:
     def __init__(self):
         self.container = []
@@ -23,63 +20,59 @@ class Stack:
     def last_element(self):
         return (self.container[len(self.container) - 1])
     
-    
-#Node class that contains the value of the tag as d_tag and the line of the tag.
+stack = Stack()  
+
 class Node:
-    def __init__(self,d_tag,line=0):                                       #constructor/initializer
+    def __init__(self,d_tag,line=0):
         self.d_tag = d_tag
         self.line = line
     
     def __str__(self):
         return self.d_tag
 
+
+class MyParser(HTMLParser):
     
-# The debug class
+    def handle_starttag(self, tag, attrs):
+        stack.push(Node(tag))
+
+    def handle_endtag(self, tag):
+        if str(tag) == str(stack.last_element()):
+            stack.pop()
+
+        elif str(tag) != str(stack.last_element()):
+            print(f" error, line: expected closing tag {stack.last_element()} ")
+            stack.pop()
+            return handle_endtag(self,tag)
+
+
 class Htmlparserdebug(HTMLParser):
-    # constructor/initializer for document upload.
-    # document has to be in the same directory
+
+    # def __init__(self,file_name="none.txt",html_file=None):
+    #     # file_path = os.path.join(os.getcwd(), file_name)
+    #     # self.html_file = open(file_path, "r+")
+    #     # html_file = open(file_path, "r+")
     
-    def __init__(self,file_name):
-        file_path = os.path.join(os.getcwd(), file_name.txt)            # joins the cwd with the filename
-        html_file = open(file_path, "r+")                               # open's the file as html_file 
-    
-    #just added this one for :)
+    html_file = open('text.txt',"r+")
+    def document(self):
+    	pass
+
     def terminate(self):
         html_file.close()
     
-    # Debug function()
-    # Checks the closing tag with the opening tag
     def debug(self):
-        line = 0                                                        # To keep track of the lines
-        stack = Stack()                                                 # An instance of the Stack() class
+        html_file = open('text.txt',"r+")
+        line = 0                                  
         
-        for line in html_file:                                          # basically looping through the html file
-            line += 1 
-            HTMLParser.feed(line)                                       # for each line, feed it to the HTMLparser feed method
-            
-            if HTMLParser.handle_starttag(tag,attrs):                   # handles start tags
-                stack.push(Node(tag,line)) 
-                
-                # for every instance of the Node(d_tag,line) class, pass the tag and the line of the start tag as arguements
-                # and then push it to the stack
-            
-            if HTMLParser.handle_endtag(tag):                           # handles endtags
-                check()                                                 # function() that handles end tags
+        
+        for line_check in html_file:
+            line += 1
+            print(f"line:{line-1}")
+            dd = MyParser()
+            dd.feed(line_check)                                 
     
-    
-    def __check(self): #private method
-        
-        # if start_tag is equal to the last element in the stack
-        
-        if HTMLParser.handle_starttag(tag) == stack.last_element.d_tag:
-            stack.pop()
-            break
-        
-        # if the end tag is not equal to the last element in the stack
-        elif HTMLParser.handle_endtag(tag) != stack.last_element.d_tag:
-         
-            print(f"line:{line}, expected:{self.d_tag} closing </tag>") #debug message
-            stack.pop()                                                 #then pop the stack
-            check()                                                     #recursive call
-    
- 
+
+
+
+obj = Htmlparserdebug()
+obj.debug()

@@ -15,10 +15,14 @@ class Stack:
         try:
             self.container.pop(len(self.container)-1)
         except Exception:
-            return (f"")
+            return (f"wrong pop")
     
     def last_element(self):
         return (self.container[len(self.container) - 1])
+
+    def length(self):
+        return len(self.container)
+
     
 stack = Stack()  
 
@@ -30,7 +34,6 @@ class Node:
     def __str__(self):
         return self.d_tag
 
-
 class MyParser(HTMLParser):
     
     def handle_starttag(self, tag, attrs):
@@ -40,10 +43,16 @@ class MyParser(HTMLParser):
         if str(tag) == str(stack.last_element()):
             stack.pop()
 
-        elif str(tag) != str(stack.last_element()):
+        elif str(tag)!= str(stack.last_element()):
             print(f" error, line: expected closing tag {stack.last_element()} ")
             stack.pop()
-            return handle_endtag(self,tag)
+            for i in range(int(stack.length())-1,0):
+                if tag == stack.last_element:
+                    stack.pop()
+                elif tag != stack.last_element:
+                    pass
+                elif tag == stack.container[i]:
+                    pass
 
 
 class Htmlparserdebug(HTMLParser):
@@ -61,16 +70,15 @@ class Htmlparserdebug(HTMLParser):
         html_file.close()
     
     def debug(self):
-        html_file = open('text.txt',"r+")
-        line = 0                                  
+        html_file = open('text.txt',"r+")                                
         
-        
+        line = 0
         for line_check in html_file:
             line += 1
             print(f"line:{line-1}")
             dd = MyParser()
             dd.feed(line_check)                                 
-    
+
 
 
 

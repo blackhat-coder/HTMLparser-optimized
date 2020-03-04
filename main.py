@@ -1,5 +1,7 @@
 # coding: utf-8
 
+
+
 from html.parser import HTMLParser 
 import os
 
@@ -23,6 +25,9 @@ class Stack:
     def length(self):
         return len(self.container)
 
+    def index(self,d):
+        return str(self.container[d])
+
     
 stack = Stack()  
 
@@ -40,19 +45,15 @@ class MyParser(HTMLParser):
         stack.push(Node(tag))
 
     def handle_endtag(self, tag):
-        if str(tag) == str(stack.last_element()):
-            stack.pop()
+        
+        for i in range(stack.length()-1,0,-1):
+            if str(tag) == stack.index(i):
+                stack.pop()
+                break
 
-        elif str(tag)!= str(stack.last_element()):
-            print(f" error, line: expected closing tag {stack.last_element()} ")
-            stack.pop()
-            for i in range(int(stack.length())-1,0):
-                if tag == stack.last_element:
-                    stack.pop()
-                elif tag != stack.last_element:
-                    pass
-                elif tag == stack.container[i]:
-                    pass
+            elif str(tag) != stack.index(i):
+                print(f" error, line: expected closing tag {stack.index(i)} ")
+                stack.pop()
 
 
 class Htmlparserdebug(HTMLParser):
@@ -84,3 +85,4 @@ class Htmlparserdebug(HTMLParser):
 
 obj = Htmlparserdebug()
 obj.debug()
+

@@ -76,7 +76,6 @@ class Htmlparserdebug(HTMLParser):
         line = 0
         for line_check in html_file:
             line += 1
-            print(f"line:{line-1}")
             dd = MyParser()
             dd.feed(line_check)                                 
 

@@ -1,4 +1,4 @@
-
+# coding: utf-8
 
 from html.parser import HTMLParser 
 import os

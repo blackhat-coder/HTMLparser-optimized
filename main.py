@@ -4,8 +4,11 @@
 
 
 
+
+
 from html.parser import HTMLParser 
 import os
+import datetime
 
 
 class Stack:
@@ -79,6 +82,8 @@ class Htmlparserdebug(HTMLParser):
                                      
         html_file = open(file_name,"r+",encoding='utf-8')
         print(os.path.join(c_wd,file_name))
+        print(datetime.datetime.now())
+        print("")
         
         for line_check in html_file:
             global line
@@ -92,4 +97,3 @@ class Htmlparserdebug(HTMLParser):
 
 if __name__ == "__main__":
     pass
-

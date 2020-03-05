@@ -93,5 +93,3 @@ class Htmlparserdebug(HTMLParser):
 if __name__ == "__main__":
     pass
 
-obj = Htmlparserdebug()
-obj.debug('text.txt')

@@ -1,4 +1,4 @@
-# HTMLparser-omptimized
+# HTMLparser-optimized
 
 Project still in development
 
